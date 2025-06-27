@@ -6,27 +6,32 @@ import { useMutation } from "@tanstack/react-query";
 import { sendChatMessage } from "@/service/chat";
 
 interface Props {
+  onSend: (
+    question: string,
+    getAnswer: (cb: (answer: string) => void) => void
+  ) => void;
   placeholder?: string;
-  onAnswer?: (answer: string) => void;
 }
 
 export default function InputArea({
+  onSend,
   placeholder = "Talk to 1",
-  onAnswer,
 }: Props) {
   const [message, setMessage] = useState("");
-
   const mutation = useMutation({
-    mutationFn: (msg: string) => sendChatMessage({ query: msg, files: [] }),
-    onSuccess: (data) => {
-      if (onAnswer) {
-        onAnswer(data.answer);
-      }
-    },
-    onError: (err) => {
-      alert("Xatolik:" + err.message);
-    },
+    mutationFn: (msg: string) => sendChatMessage({ query: msg }),
   });
+
+  const handleSend = () => {
+    if (!message.trim()) return;
+    onSend(message, (cb) => {
+      mutation.mutate(message, {
+        onSuccess: (data) => cb(data.answer),
+        onError: () => cb("Xatolik yuz berdi!"),
+      });
+    });
+    setMessage("");
+  };
 
   return (
     <div className="flex items-center border rounded-xl px-3 py-2 gap-1 bg-[var(--inputArea)] border-[var(--border)]">
@@ -38,8 +43,7 @@ export default function InputArea({
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter" && message.trim()) {
-            mutation.mutate(message);
-            setMessage("");
+            handleSend();
           }
         }}
         disabled={mutation.isPending}
@@ -55,10 +59,7 @@ export default function InputArea({
         className="py-1 px-2 rounded-sm text-white transition disabled:opacity-30 bg-[var(--sendChatBg)] cursor-pointer"
         title="Yuborish"
         disabled={!message.trim() || mutation.isPending}
-        onClick={() => {
-          mutation.mutate(message);
-          setMessage("");
-        }}
+        onClick={handleSend}
       >
         <Icon icon={"material-symbols:send-rounded"} className="h-5 w-5" />
       </button>
