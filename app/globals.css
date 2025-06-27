@@ -20,7 +20,8 @@ html.dark {
   --border: #232327;
   --themeBgModalBtn: #1E1E22;
   --themeIconBg: #303033;
-  --sendChatBg: #1C64F2
+  --sendChatBg: #1C64F2;
+  --aiAnswerBg: #2B2B2F;
 }
 
 body {

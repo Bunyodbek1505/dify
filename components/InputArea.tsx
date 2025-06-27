@@ -34,7 +34,7 @@ export default function InputArea({
   };
 
   return (
-    <div className="flex items-center border rounded-xl px-3 py-2 gap-1 bg-[var(--inputArea)] border-[var(--border)]">
+    <div className="flex items-center border rounded-xl p-3 gap-1 bg-[var(--inputArea)] border-[var(--border)]">
       <input
         type="text"
         className="flex-1 bg-transparent outline-none text-[var(--foreground)] text-sm px-2 placeholder-gray-400"

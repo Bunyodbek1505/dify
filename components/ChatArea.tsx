@@ -47,7 +47,7 @@ export default function ChatArea() {
               : msg
           )
         );
-      });
+      }); 
   };
 
   return (
@@ -66,7 +66,7 @@ export default function ChatArea() {
         </div>
       </div>
       <div className="w-full px-0 pb-6 flex justify-center">
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-3xl">
           <InputArea onSend={handleSend} />
         </div>
       </div>

@@ -50,7 +50,6 @@ export async function streamChatMessage(payload: ChatMessagePayload, onChunk: (t
         const lines = buffer.split('\n');
         buffer = lines.pop() || ''; // oxirgi bo‘lak bo‘lishi mumkin, keyingi iteratsiyada davom etadi
 
-
         for (let line of lines) {
             line = line.trim();
 
@@ -61,7 +60,6 @@ export async function streamChatMessage(payload: ChatMessagePayload, onChunk: (t
                     const msg = JSON.parse(jsonStr);
                     // msg.content yoki msg.answer yoki msg.data.content ni tekshiring
                     if (msg.event === 'message' && msg.answer) {
-
                         onChunk(msg.answer);
                     } else if (msg.event === 'message' && msg.data?.content) {
                         // Ba’zi APIlarda structure boshqacha bo‘lishi mumkin

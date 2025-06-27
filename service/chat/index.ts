@@ -6,7 +6,6 @@ export interface ChatMessagePayload {
   response_mode?: string;
   conversation_id?: string;
   user?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   files?: Array<any>;
 }
 

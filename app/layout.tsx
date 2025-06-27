@@ -7,7 +7,7 @@ import Providers from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "DIFY Chatbot",
+  title: "Dify",
   description: "Chat UI with Next.js, TypeScript, and Tailwind CSS",
 };
 
