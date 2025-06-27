@@ -16,8 +16,11 @@ html.dark {
   --sidebar: #1D1D20;
   --chatArea: #212124;
   --inputArea: #2B2B30;
-  --startNewChat: #ffffffcc;
+  --startNewChat: #38383B;
   --border: #232327;
+  --themeBgModalBtn: #1E1E22;
+  --themeIconBg: #303033;
+  --sendChatBg: #1C64F2
 }
 
 body {

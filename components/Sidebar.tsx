@@ -1,15 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import {
-  XMarkIcon,
-  Bars3Icon,
-  Cog6ToothIcon,
-  SunIcon,
-  MoonIcon,
-  ComputerDesktopIcon,
-} from "@heroicons/react/24/outline";
 import { useThemeStore } from "@/store/themeStore";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const chatHistory = [
   { id: "1", title: "New conversation" },
@@ -45,22 +38,22 @@ export default function Sidebar({
   if (!isOpen) {
     return (
       <aside className="flex flex-col justify-between h-full w-[72px] bg-[var(--sidebar)] border-r border-[var(--border)] text-[var(--foreground)] transition-all duration-300 relative">
-        {/* Top: avatar and chat name */}
+        {/* avatar and chat name */}
         <div className="flex flex-col items-center pt-3 gap-3">
           <div className="flex flex-col items-center gap-1">
-            <img
-              src="/robot-avatar.png"
-              alt="bot"
-              className="w-10 h-10 rounded-lg"
-            />
-            <span className="text-xs text-center font-semibold">1</span>
+            {/* <Image src={difyImage} alt="Dify logo" className="text-white"/> */}
+
+            <span className="text-sm text-center font-semibold">Dify</span>
           </div>
           <button
             className="mt-2 p-1 rounded hover:bg-[var(--border)]"
             onClick={() => setIsOpen(true)}
             title="Sidebar ochish"
           >
-            <Bars3Icon className="h-6 w-6 text-gray-400" />
+            <Icon
+              icon={"material-symbols:right-panel-close-outline-sharp"}
+              className="h-6 w-6 text-gray-400"
+            />
           </button>
         </div>
         {/* Bottom: settings icon */}
@@ -70,7 +63,10 @@ export default function Sidebar({
             className="p-2 rounded hover:bg-[var(--border)]"
             onClick={() => setThemeOpen((v) => !v)}
           >
-            <Cog6ToothIcon className="h-5 w-5 text-gray-400" />
+            <Icon
+              icon={"material-symbols:settings-outline"}
+              className="h-5 w-5 text-gray-400"
+            />
           </button>
           {themeOpen && (
             <div
@@ -80,9 +76,9 @@ export default function Sidebar({
               <div className="font-medium text-xs mb-2 text-gray-300">
                 Theme
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 ">
                 <button
-                  className={`p-2 rounded ${
+                  className={`p-2 rounded-lg ${
                     theme === "system"
                       ? "bg-[var(--chatArea)] text-white"
                       : "text-gray-300"
@@ -93,10 +89,13 @@ export default function Sidebar({
                   }}
                   title="System"
                 >
-                  <ComputerDesktopIcon className="h-5 w-5" />
+                  <Icon
+                    icon="fluent:desktop-mac-24-regular"
+                    className="h-5 w-5"
+                  />
                 </button>
                 <button
-                  className={`p-2 rounded ${
+                  className={`p-2 rounded-lg ${
                     theme === "light"
                       ? "bg-[var(--chatArea)] text-white"
                       : "text-gray-300"
@@ -107,12 +106,12 @@ export default function Sidebar({
                   }}
                   title="Light"
                 >
-                  <SunIcon className="h-5 w-5" />
+                  <Icon icon="mingcute:sun-line" className="h-5 w-5" />
                 </button>
                 <button
-                  className={`p-2 rounded ${
+                  className={`p-2 rounded-xl ${
                     theme === "dark"
-                      ? "bg-[var(--chatArea)] text-white"
+                      ? "bg-[var(--themeIconBg)] text-white"
                       : "text-gray-300"
                   }`}
                   onClick={() => {
@@ -121,7 +120,10 @@ export default function Sidebar({
                   }}
                   title="Dark"
                 >
-                  <MoonIcon className="h-5 w-5" />
+                  <Icon
+                    icon="material-symbols-light:dark-mode-outline"
+                    className="h-5 w-5"
+                  />
                 </button>
               </div>
             </div>
@@ -137,43 +139,26 @@ export default function Sidebar({
       {/* Header */}
       <div className="flex items-center justify-between h-[56px] px-4 border-b border-[var(--border)]">
         <div className="flex items-center gap-2">
-          <img
-            src="/robot-avatar.png"
-            alt="bot"
-            className="w-10 h-10 rounded-lg"
-          />
-          <span className="font-semibold text-base">1</span>
+          <span className="font-semibold text-base">Dify</span>
         </div>
         <button
           className="p-1 rounded hover:bg-[var(--border)]"
           onClick={() => setIsOpen(false)}
           title="Sidebar yopish"
         >
-          <XMarkIcon className="h-5 w-5 text-gray-400" />
+          <Icon icon="lucide:panel-left" />
         </button>
       </div>
       {/* Start new chat button */}
       <div className="px-4 py-3">
-        <button className="w-full flex items-center justify-center px-2 py-2 rounded text-sm font-medium border border-[var(--border)] transition bg-[var(--startNewChat)] text-[var(--foreground)]">
-          <svg width="18" height="18" className="mr-1" fill="none">
-            <rect
-              x="7"
-              y="2"
-              width="4"
-              height="14"
-              rx="2"
-              fill="currentColor"
+        <button className="w-full flex items-center justify-center gap-1 px-2 py-2 rounded-xl cursor-pointer text-sm font-medium border border-[var(--border)] transition bg-[var(--startNewChat)] text-[var(--foreground)]">
+          <span>
+            <Icon
+              icon="material-symbols:edit-square-outline-rounded"
+              className="text-sm"
             />
-            <rect
-              x="2"
-              y="7"
-              width="14"
-              height="4"
-              rx="2"
-              fill="currentColor"
-            />
-          </svg>
-          Start New chat
+          </span>
+          <span className="text-sm"> Start New chat</span>
         </button>
       </div>
       {/* Chat list */}
@@ -192,80 +177,98 @@ export default function Sidebar({
         ))}
       </ul>
       {/* Footer */}
-      <div className="px-3 pb-3 pt-2">
-        <div className="bg-[var(--border)] rounded-lg mb-2 p-2">
-          <div className="flex items-center mb-1">
-            <span className="flex-1 text-xs text-gray-300 font-medium">
-              Theme
-            </span>
-            <button
-              title="Theme"
-              onClick={() => setThemeOpen((v) => !v)}
-              className="p-1 rounded hover:bg-[var(--chatArea)]"
-            >
-              <Cog6ToothIcon className="h-5 w-5 text-gray-400" />
-            </button>
-          </div>
-          {themeOpen && (
-            <div ref={themeRef} className="flex gap-2 justify-end">
-              <button
-                className={`p-2 rounded ${
-                  theme === "system"
-                    ? "bg-[var(--chatArea)] text-white"
-                    : "text-gray-300"
-                }`}
-                onClick={() => {
-                  setTheme("system");
-                  setThemeOpen(false);
-                }}
-                title="System"
+      <div className="flex px-1 pb-3 pt-2">
+        {/* toggle */}
+        {themeOpen && (
+          <div className="bg-[var(--border)] rounded-lg mb-2 p-2">
+            <div className="flex justify-between items-center mb-0">
+              <div>
+                <span className="flex-1 text-xs text-gray-300 font-medium">
+                  Theme
+                </span>
+              </div>
+              <div
+                ref={themeRef}
+                className="bg-[var(--themeBgModalBtn)] px-1 py-1 rounded-lg flex items-center gap-1"
               >
-                <ComputerDesktopIcon className="h-5 w-5" />
-              </button>
-              <button
-                className={`p-2 rounded ${
-                  theme === "light"
-                    ? "bg-[var(--chatArea)] text-white"
-                    : "text-gray-300"
-                }`}
-                onClick={() => {
-                  setTheme("light");
-                  setThemeOpen(false);
-                }}
-                title="Light"
-              >
-                <SunIcon className="h-5 w-5" />
-              </button>
-              <button
-                className={`p-2 rounded ${
-                  theme === "dark"
-                    ? "bg-[var(--chatArea)] text-white"
-                    : "text-gray-300"
-                }`}
-                onClick={() => {
-                  setTheme("dark");
-                  setThemeOpen(false);
-                }}
-                title="Dark"
-              >
-                <MoonIcon className="h-5 w-5" />
-              </button>
+                <button
+                  className={`p-2 rounded-lg ${
+                    theme === "system"
+                      ? "bg-[var(--chatArea)] text-white"
+                      : "text-gray-300"
+                  }`}
+                  onClick={() => {
+                    setTheme("system");
+                    setThemeOpen(false);
+                  }}
+                  title="System"
+                >
+                  <Icon
+                    icon="fluent:desktop-mac-24-regular"
+                    className="h-5 w-5"
+                  />
+                </button>
+
+                {/* Vertical Divider */}
+                <div className="w-px h-6 bg-gray-600 mx-1 opacity-40" />
+
+                <button
+                  className={`p-2 rounded-lg ${
+                    theme === "light"
+                      ? "bg-[var(--chatArea)] text-white"
+                      : "text-gray-300"
+                  }`}
+                  onClick={() => {
+                    setTheme("light");
+                    setThemeOpen(false);
+                  }}
+                  title="Light"
+                >
+                  <Icon icon="mingcute:sun-line" className="h-5 w-5" />
+                </button>
+
+                <button
+                  className={`p-2 rounded-xl ${
+                    theme === "dark"
+                      ? "bg-[var(--themeIconBg)] text-white"
+                      : "text-gray-300"
+                  }`}
+                  onClick={() => {
+                    setTheme("dark");
+                    setThemeOpen(false);
+                  }}
+                  title="Dark"
+                >
+                  <Icon
+                    icon="material-symbols-light:dark-mode-outline"
+                    className="h-5 w-5"
+                  />
+                </button>
+              </div>
             </div>
-          )}
-          <div className="mt-2 text-xs text-gray-400 cursor-pointer rounded hover:bg-[var(--chatArea)] px-2 py-1">
-            About
+            <div className="mt-2 text-xs text-gray-400 cursor-pointer rounded hover:bg-[var(--chatArea)] px-2 py-1">
+              About
+            </div>
           </div>
-        </div>
-        <div className="flex items-center text-xs text-gray-400">
+        )}
+
+        {/*  */}
+        <div className="flex justify-baseline items-center text-xs text-gray-400">
           <button
             className="p-2 rounded hover:bg-[var(--chatArea)] mr-2"
             title="Sozlamalar"
+            onClick={() => setThemeOpen((v) => !v)}
           >
-            <Cog6ToothIcon className="h-5 w-5" />
+            <Icon
+              icon={"material-symbols:settings-outline"}
+              className="h-5 w-5 text-gray-400"
+            />
           </button>
           <span>
             POWERED BY{" "}
-            <span className="font-bold text-[var(--foreground)]">Dify</span>
+            <span className="font-bold text-[var(--foreground)]">
+              Smart Base
+            </span>
           </span>
         </div>
       </div>
