@@ -3,35 +3,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --darkSidebar: #1D1D20;
-  --darkChatArea: #212124;
-  --darkInputArea: #2B2B30;
-  --darkStartNewChat: #ffffffcc;
-
-  --lighSidebar: #F8F9FB;
-  --lighChatArea: #F4F6F8;
-  --lighInputArea: #FFFFFF;
-  --lightStartNewChat: #155aef;
-
-
+  --sidebar: #F8F9FB;
+  --chatArea: #F4F6F8;
+  --inputArea: #FFFFFF;
+  --startNewChat: #155aef;
+  --border: #e5e7eb;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --sidebar: #1D1D20;
+  --chatArea: #212124;
+  --inputArea: #2B2B30;
+  --startNewChat: #ffffffcc;
+  --border: #232327;
 }
 
 body {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  @apply transition-colors duration-300;
+  background: var(--background);
+  color: var(--foreground);
 }

@@ -1,29 +1,17 @@
-"use client";
+'use client';
 
 import React from "react";
 import InputArea from "./InputArea";
 
-const ChatArea: React.FC = () => {
-  //   const messages: string[] = [];
-
-  const handleSendMessage = (message: string) => {
-    console.log("Yuborilmoqda:", message);
-  };
-
+export default function ChatArea() {
   return (
-    <main className="flex flex-col flex-grow bg-[#212124] dark:bg-gray-800">
-      <div className="flex-grow p-6 overflow-y-auto">
-        {/* messages.map((msg, index) => (
-            <div key={index} className="mb-2 p-3 bg-gray-700 dark:bg-gray-600 rounded-md text-white dark:text-gray-100">
-              {msg}
-            </div>
-          )) */}
-        {/* Hozircha bo'sh */}
+    <main className="flex flex-col h-full bg-[var(--chatArea)] text-[var(--foreground)]">
+      <div className="flex-1 overflow-y-auto p-0"></div>
+      <div className="w-full px-0 pb-6 flex justify-center">
+        <div className="w-full max-w-2xl">
+          <InputArea placeholder="Talk to 1" />
+        </div>
       </div>
-
-      <InputArea onSendMessage={handleSendMessage} placeholder="Talk to 1" />
     </main>
   );
-};
-
-export default ChatArea;
+}

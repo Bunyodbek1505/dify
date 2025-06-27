@@ -1,60 +1,41 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import { PaperAirplaneIcon, MicrophoneIcon } from "@heroicons/react/24/outline";
 
-interface InputAreaProps {
-  onSendMessage: (message: string) => void;
+interface Props {
   placeholder?: string;
 }
 
-const InputArea: React.FC<InputAreaProps> = ({
-  onSendMessage,
-  placeholder = "Talk to 1",
-}) => {
+export default function InputArea({ placeholder = "Talk to 1" }: Props) {
   const [message, setMessage] = useState("");
 
-  const handleSend = () => {
-    if (message.trim()) {
-      onSendMessage(message.trim());
-      setMessage("");
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
-
   return (
-    <div className="max-w-[1099px] flex justify-center items-center p-1 border border-gray-800 bg-[#2B2B30] gap-3">
+    <div
+      className="flex items-center border rounded-xl px-3 py-2 gap-2 bg-[var(--inputArea)] border-[var(--border)]"
+    >
       <input
         type="text"
-        className="w-full flex-grow px-4  text-gray-100  placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
+        className="flex-1 bg-transparent outline-none text-[var(--foreground)] text-sm px-2 placeholder-gray-400"
         placeholder={placeholder}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        onKeyPress={handleKeyPress}
       />
       <button
-        className="p-3 rounded-full text-gray-400 dark:text-gray-500 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none"
+        className="p-1 rounded-full text-gray-400 hover:bg-[var(--border)] transition"
         title="Ovozli kiritish"
         onClick={() => alert("Ovozli kiritish hali qo'shilmagan!")}
       >
-        <MicrophoneIcon className="h-6 w-6" />
+        <MicrophoneIcon className="h-5 w-5" />
       </button>
       <button
-        className="p-3 rounded-full text-gray-400 dark:text-gray-500 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+        className="p-1 rounded-full text-white transition disabled:opacity-30 bg-[var(--startNewChat)]"
         title="Yuborish"
-        onClick={handleSend}
         disabled={!message.trim()}
+        onClick={() => setMessage("")}
       >
-        <PaperAirplaneIcon className="h-6 w-6" />
+        <PaperAirplaneIcon className="h-5 w-5" />
       </button>
     </div>
   );
-};
-
-export default InputArea;
+}
