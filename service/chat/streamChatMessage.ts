@@ -9,7 +9,11 @@ export type ChatMessagePayload = {
     files?: any;
 };
 
-export async function streamChatMessage(payload: ChatMessagePayload, onChunk: (text: string) => void): Promise<void> {
+export async function streamChatMessage(
+    payload: ChatMessagePayload,
+    onChunk: (text: string) => void,
+    onStart?: (taskId: string) => void
+): Promise<void> {
     const { endpoint = "/chat-messages" } = {};
     const url = API_URL + endpoint;
     const headers: Record<string, string> = {
@@ -32,9 +36,13 @@ export async function streamChatMessage(payload: ChatMessagePayload, onChunk: (t
         })
     });
 
+
     if (!res.ok || !res.body) {
         throw new Error("API yoki stream bilan muammo");
     }
+
+    const taskId = res.headers.get("x-task-id");
+    if (taskId && onStart) onStart(taskId);
 
     const reader = res.body.getReader();
     const decoder = new TextDecoder('utf-8');
@@ -58,7 +66,7 @@ export async function streamChatMessage(payload: ChatMessagePayload, onChunk: (t
                 if (jsonStr === '[DONE]') continue;
                 try {
                     const msg = JSON.parse(jsonStr);
-                    // msg.content yoki msg.answer yoki msg.data.content ni tekshiring
+                    if (msg.task_id && onStart) onStart(msg.task_id);
                     if (msg.event === 'message' && msg.answer) {
                         onChunk(msg.answer);
                     } else if (msg.event === 'message' && msg.data?.content) {

@@ -3,26 +3,49 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useThemeStore } from "@/store/themeStore";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import ChatHistory from "../chat/ChatHistory";
+import { getChatHistory } from "@/service/chat/chatHistory";
 
-const chatHistory = [
-  { id: "1", title: "New conversation" },
-  { id: "2", title: "what is js" },
-  { id: "3", title: "hi" },
-];
+interface ChatItem {
+  id: string;
+  name: string;
+}
 
 export default function Sidebar({
   isOpen,
   setIsOpen,
-  activeChatId = "1",
+  activeChatId,
+  onSelectChat,
+  chatList
 }: {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   activeChatId?: string;
+  onSelectChat?: (id: string) => void;
+  chatList: { id: string; name: string }[];
 }) {
   const [themeOpen, setThemeOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
+  const [chatHistory, setChatHistory] = useState<ChatItem[]>([]);
 
   const { theme, setTheme } = useThemeStore();
+
+  useEffect(() => {
+    const fetchChatHistory = async () => {
+      try {
+        const response = await getChatHistory();
+        const chats = response.data.map((chat: any) => ({
+          id: chat.id,
+          name: chat.name || "No title",
+        }));
+        setChatHistory(chats);
+      } catch (err) {
+        console.error("Chat tarixini olishda xatolik:", err);
+      }
+    };
+
+    fetchChatHistory();
+  }, []);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -162,20 +185,11 @@ export default function Sidebar({
         </button>
       </div>
       {/* Chat list */}
-      <ul className="flex-1 px-2 pt-1 overflow-y-auto">
-        {chatHistory.map((chat) => (
-          <li
-            key={chat.id}
-            className={`px-3 py-2 rounded cursor-pointer mb-1 text-sm flex items-center gap-2 ${
-              chat.id === activeChatId
-                ? "bg-[var(--border)] text-[var(--foreground)] font-medium"
-                : "hover:bg-[var(--border)] text-gray-300"
-            }`}
-          >
-            {chat.title}
-          </li>
-        ))}
-      </ul>
+      <ChatHistory
+        chats={chatList}
+        activeChatId={activeChatId}
+        onSelectChat={onSelectChat}
+      />
       {/* Footer */}
       <div className="flex px-1 pb-3 pt-2">
         {/* toggle */}

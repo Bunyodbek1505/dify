@@ -13,7 +13,7 @@ const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
 }) => {
   return (
     <li
-      className="p-3 text-sm cursor-pointer border-b hover:bg-[var(--border, #232327)] last:border-b-0"
+      className="p-3 text-sm cursor-pointer border-b bg-red-500 hover:bg-[var(--border, #232327)] last:border-b-0"
       style={{
         borderColor: "var(--border, #232327)",
         color: "var(--foreground)",

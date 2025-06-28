@@ -1,5 +1,5 @@
-import ChatArea from "@/components/ChatArea";
+import ChatArea from "@/components/chat/ChatArea";
 
 export default function Home() {
-  return <ChatArea />;
+  return null;
 }

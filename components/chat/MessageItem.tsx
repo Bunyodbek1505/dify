@@ -4,7 +4,6 @@ import avatarImage from "@/public/avatar.png";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
-  materialLight,
   materialDark,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -77,6 +76,7 @@ export default function MessageItem({
                 }}
               >
                 {answer}
+
               </ReactMarkdown>
             )
           )}

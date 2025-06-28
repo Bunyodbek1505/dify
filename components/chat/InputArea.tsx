@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useMutation } from "@tanstack/react-query";
-import { sendChatMessage } from "@/service/chat";
+import { sendChatMessage } from "@/service/chat/sendMessage";
 
 interface Props {
   onSend: (
